@@ -1,0 +1,10 @@
+<%= @user.username %>
+
+<ul>
+<% @user.goals.each do |goal| %>
+  <% next if current_user != @user && !goal.public %>
+  <li><%= link_to "#{goal.title}", "/users/#{@user.id}/goals/#{goal.id}"%> <%= "Completed" if goal.completed %> <%= "Private" unless goal.public %></li>
+<% end %>
+</ul>
+
+<%= button_to "Index", goals_url, method: :get %>

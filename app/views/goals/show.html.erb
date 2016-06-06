@@ -1,0 +1,10 @@
+<h1><%= @goal.title %></h1>
+<%= "Private" unless @goal.public %>
+<br>
+<%= "Completed" if @goal.completed %>
+<br><br>
+<%= button_to "Edit", edit_goal_url(@goal), method: :get %>
+<br>
+<%= button_to "Delete", goal_url(@goal), method: :delete %>
+<br>
+<%= button_to "Index", goals_url, method: :get %>
