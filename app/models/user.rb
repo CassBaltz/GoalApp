@@ -10,6 +10,21 @@ class User < ActiveRecord::Base
 
   has_many :goals
 
+  has_many :user_comments,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: "UserComment"
+
+  has_many :goal_comments,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: "GoalComment"
+
+  has_many :received_comments,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: "UserComment"
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)

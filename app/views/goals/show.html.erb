@@ -6,5 +6,26 @@
 <%= button_to "Edit", edit_goal_url(@goal), method: :get %>
 <br>
 <%= button_to "Delete", goal_url(@goal), method: :delete %>
+
+<h3>Comments</h3>
+<% @goal.goal_comments.each do |gc| %>
+<%= gc.author.username %><br>
+<%= gc.body %>
+<br><br>
+<% end %>
+
+<h3>New Comment</h3>
+<form action="<%= goal_goal_comments_url(@goal.id) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="Body">Body</label>
+  <input type="text" name="goal_comment[body]" id="Body">
+
+  <br><br>
+
+  <input type="hidden" name="goal_comment[goal_id]" value="<%= @goal.id %>">
+  <input type="submit" value="Add Comment">
+</form>
+
 <br>
 <%= button_to "Index", goals_url, method: :get %>
