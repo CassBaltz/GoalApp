@@ -6,7 +6,21 @@
 <%= button_to "Edit", edit_goal_url(@goal), method: :get %>
 <br>
 <%= button_to "Delete", goal_url(@goal), method: :delete %>
-
+<br><br>
+<ul>
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |err| %>
+      <li><%= err %></li>
+    <% end %>
+  <% end %>
+</ul>
+<form action="<%= cheers_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="cheer[goal_id]" value="<%= @goal.id %>">
+  <input type="submit" value="Cheer!">
+</form>
+<br>
+<%= @goal.cheers.length %>
 <h3>Comments</h3>
 <% @goal.comments.each do |gc| %>
 <%= gc.author.username %><br>
