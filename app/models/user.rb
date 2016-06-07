@@ -1,6 +1,8 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
+  include Commentable
+
   attr_reader :password
 
   validates :username, :password_digest, :session_token, presence: true
@@ -10,20 +12,25 @@ class User < ActiveRecord::Base
 
   has_many :goals
 
-  has_many :user_comments,
-    primary_key: :id,
-    foreign_key: :author_id,
-    class_name: "UserComment"
+  has_many :authored_comments,
+  class_name: :Comment,
+  primary_key: :id,
+  foreign_key: :author_id
 
-  has_many :goal_comments,
-    primary_key: :id,
-    foreign_key: :author_id,
-    class_name: "GoalComment"
-
-  has_many :received_comments,
-    primary_key: :id,
-    foreign_key: :user_id,
-    class_name: "UserComment"
+  # has_many :user_comments,
+  #   primary_key: :id,
+  #   foreign_key: :author_id,
+  #   class_name: "UserComment"
+  #
+  # has_many :goal_comments,
+  #   primary_key: :id,
+  #   foreign_key: :author_id,
+  #   class_name: "GoalComment"
+  #
+  # has_many :received_comments,
+  #   primary_key: :id,
+  #   foreign_key: :user_id,
+  #   class_name: "UserComment"
 
   def password=(password)
     @password = password

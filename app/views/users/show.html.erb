@@ -8,23 +8,25 @@
 </ul>
 
 <h3>Comments</h3>
-<% @user.user_comments.each do |uc| %>
+<% @user.comments.each do |uc| %>
 <%= uc.author.username %><br>
 <%= uc.body %>
 <br><br>
 <% end %>
 
 <h3>New Comment</h3>
-<form action="<%= user_user_comments_url(@user.id) %>" method="post">
+<form action="<%= comments_url %>" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="comment[commentable_type]" value="User">
 
   <label for="Body">Body</label>
-  <input type="text" name="user_comment[body]" id="Body">
+  <input type="text" name="comment[body]" id="Body">
 
   <br><br>
 
-  <input type="hidden" name="user_comment[user_id]" value="<%= @user.id %>">
+  <input type="hidden" name="comment[commentable_id]" value="<%= @user.id %>">
   <input type="submit" value="Add Comment">
 </form>
+
 
 <%= button_to "Index", goals_url, method: :get %>
